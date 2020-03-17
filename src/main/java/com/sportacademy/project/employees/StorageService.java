@@ -1,6 +1,7 @@
 package com.sportacademy.project.employees;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,4 +44,7 @@ public class StorageService {
     }
   }
 
+  public void removeFile(String filePath) {
+    FileUtils.deleteQuietly(new File(filePath));
+  }
 }

@@ -18,6 +18,7 @@ public class EmployeeService {
 
   public void storeFileForEmployee(MultipartFile file, String id) {
     Employee employee = getEmployee(id);
+    storageService.removeFile(employee.getPermissions().getLifeguard().getFilePath());
     Path path = storageService.storeFile(file, id);
     employee.getPermissions().getLifeguard().setFilePath(path.toString());
     employeeRepository.save(employee);
