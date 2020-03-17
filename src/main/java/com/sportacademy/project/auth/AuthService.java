@@ -16,6 +16,6 @@ public class AuthService {
   public Boolean checkCredentials(AuthRequest authRequest) {
     String login = System.getenv("login");
     String pwd = System.getenv("pwd");
-    return authRequest.getLogin().equals(login) && authRequest.getPwd().equals(pwd);
+    return authRequest.getLogin().equals(login) && authRequest.getPassword().equals(pwd);
   }
 }
