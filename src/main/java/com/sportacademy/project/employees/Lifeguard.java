@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.Binary;
 
 @Getter
 @Setter
@@ -14,5 +15,5 @@ public class Lifeguard {
 
   private String refreshedDate;
   private String endDate;
-  private String filePath;
+  private Binary image;
 }

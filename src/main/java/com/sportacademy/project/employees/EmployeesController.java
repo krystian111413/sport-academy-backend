@@ -1,11 +1,9 @@
 package com.sportacademy.project.employees;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Base64;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,22 +41,28 @@ public class EmployeesController {
     employeeService.storeFileForEmployee(file, id);
   }
 
+//  @GetMapping(value = "/{id}/file")
+//  public void getFile(
+//      @PathVariable("id") String id,
+//      HttpServletResponse response) {
+//    try {
+//      Employee employee = employeeService.getEmployee(id);
+//      InputStream file = new FileInputStream(employee.getPermissions().getLifeguard().getFilePath());
+//      org.apache.commons.io.IOUtils.copy(file, response.getOutputStream());
+//      response.flushBuffer();
+//    } catch (IOException ex) {
+//      log.info("Error writing file to output stream", ex);
+//      throw new RuntimeException("IOError writing file to output stream");
+//    }
+//
+//  }
+
   @GetMapping(value = "/{id}/file")
-  public void getFile(
-      @PathVariable("id") String id,
-      HttpServletResponse response) {
-    try {
-      Employee employee = employeeService.getEmployee(id);
-      InputStream file = new FileInputStream(employee.getPermissions().getLifeguard().getFilePath());
-      org.apache.commons.io.IOUtils.copy(file, response.getOutputStream());
-      response.flushBuffer();
-    } catch (IOException ex) {
-      log.info("Error writing file to output stream", ex);
-      throw new RuntimeException("IOError writing file to output stream");
-    }
-
+  public String getFile(@PathVariable String id, Model model) {
+    Employee employee = employeeService.getEmployee(id);
+    return Base64.getEncoder()
+        .encodeToString(employee.getPermissions().getLifeguard().getImage().getData());
   }
-
 
   @PostMapping
   public Employee create(@RequestBody Employee employee) {
