@@ -12,4 +12,10 @@ public class AuthService {
     String loginAndpwd = new String(Base64Utils.decodeFromString(header));
     return loginAndpwd.equals(login + "&" + pwd);
   }
+
+  public Boolean checkCredentials(AuthRequest authRequest) {
+    String login = System.getenv("login");
+    String pwd = System.getenv("pwd");
+    return authRequest.getLogin().equals(login) && authRequest.getPwd().equals(pwd);
+  }
 }

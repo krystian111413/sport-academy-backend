@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +32,7 @@ public class EmployeesController {
   private EmployeeService employeeService;
 
   @GetMapping
+  @ResponseBody
   public Iterable<Employee> getAll(@RequestHeader("Authorization") String auth) {
     if (authService.isAuthorization(auth)) {
       return employeeRepository.findAll();
