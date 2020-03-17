@@ -41,22 +41,6 @@ public class EmployeesController {
     employeeService.storeFileForEmployee(file, id);
   }
 
-//  @GetMapping(value = "/{id}/file")
-//  public void getFile(
-//      @PathVariable("id") String id,
-//      HttpServletResponse response) {
-//    try {
-//      Employee employee = employeeService.getEmployee(id);
-//      InputStream file = new FileInputStream(employee.getPermissions().getLifeguard().getFilePath());
-//      org.apache.commons.io.IOUtils.copy(file, response.getOutputStream());
-//      response.flushBuffer();
-//    } catch (IOException ex) {
-//      log.info("Error writing file to output stream", ex);
-//      throw new RuntimeException("IOError writing file to output stream");
-//    }
-//
-//  }
-
   @GetMapping(value = "/{id}/file")
   public String getFile(@PathVariable String id, Model model) {
     Employee employee = employeeService.getEmployee(id);
@@ -72,7 +56,10 @@ public class EmployeesController {
 
   @PutMapping("/{id}")
   public void replace(@RequestBody Employee employee, @PathVariable String id) {
-    employee.setId(id);
-    this.employeeRepository.save(employee);
+    Employee employeeFromDb = employeeService.getEmployee(id);
+    employee.getPermissions().getLifeguard().setImage(
+        employeeFromDb.getPermissions().getLifeguard().getImage()
+    );
+    employeeRepository.save(employee);
   }
 }
