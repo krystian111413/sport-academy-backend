@@ -13,6 +13,7 @@ import org.bson.types.Binary;
 public class Deal {
   private Binary image;
   private String place;
+  private String dealType;
   private String startDate;
   private String endDate;
 }

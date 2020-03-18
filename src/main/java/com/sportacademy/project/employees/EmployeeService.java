@@ -109,6 +109,7 @@ public class EmployeeService {
     employeeFromDb.getDeal().setEndDate(employee.getDeal().getEndDate());
     employeeFromDb.getDeal().setPlace(employee.getDeal().getPlace());
     employeeFromDb.getDeal().setStartDate(employee.getDeal().getStartDate());
+    employeeFromDb.getDeal().setDealType(employee.getDeal().getDealType());
     employeeFromDb.getPermissions().getLifeguard().setReleaseDate(employee.getPermissions().getLifeguard().getReleaseDate());
     employeeFromDb.getPermissions().getFirstAid().setRefreshedDate(employee.getPermissions().getFirstAid().getRefreshedDate());
     employeeFromDb.getPermissions().getFirstAid().setEndDate(employee.getPermissions().getFirstAid().getEndDate());
