@@ -1,10 +1,10 @@
 package com.sportacademy.project.employees;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.Binary;
 
 @Getter
 @Setter
@@ -12,11 +12,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Permissions {
   private Lifeguard lifeguard;
-  private RefreshAndEndDate firstAid;
-  private List<String> usefulPermissions;
+  private FirstAid firstAid;
+  private UsefulPermissions usefulPermissions;
   private String anotherPermission;
-  private RefreshAndEndDate medicalExamination;
-  private RefreshAndEndDate ohstests;
+  private Binary anotherPermissionImage;
+  private MedicalExamination medicalExamination;
+  private Ohstests ohstests;
   private EndDate sanel;
   private EndDate studentCard;
 }

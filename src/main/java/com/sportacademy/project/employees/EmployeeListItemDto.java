@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Adress {
-  private String street;
+public class EmployeeListItemDto {
+  private String id;
+  private String firstName;
+  private String surName;
   private String city;
-  private String buildingNumber;
-  private String code;
-  private String email;
-  private String phone;
+  private String dealEndDate;
+
 }

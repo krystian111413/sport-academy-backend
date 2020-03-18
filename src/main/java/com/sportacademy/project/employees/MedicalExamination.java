@@ -4,16 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.Binary;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Adress {
-  private String street;
-  private String city;
-  private String buildingNumber;
-  private String code;
-  private String email;
-  private String phone;
+public class MedicalExamination {
+
+  private Binary image;
+  private String refreshedDate;
+  private String endDate;
 }

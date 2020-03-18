@@ -13,7 +13,6 @@ import org.bson.types.Binary;
 @AllArgsConstructor
 public class Lifeguard {
 
-  private String refreshedDate;
-  private String endDate;
+  private String releaseDate;
   private Binary image;
 }

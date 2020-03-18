@@ -1,11 +1,10 @@
 package com.sportacademy.project.employees;
 
 import com.sportacademy.project.auth.AuthService;
-import java.util.Base64;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,9 +32,9 @@ public class EmployeesController {
 
   @GetMapping
   @ResponseBody
-  public Iterable<Employee> getAll(@RequestHeader("Authorization") String auth) {
+  public List<EmployeeListItemDto> getAll(@RequestHeader("Authorization") String auth) {
     if (authService.isAuthorization(auth)) {
-      return employeeRepository.findAll();
+      return employeeService.getAll();
     } else {
       throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
     }
@@ -50,21 +49,26 @@ public class EmployeesController {
     }
   }
 
-  @PostMapping("/{id}/file")
-  public void handleFileUpload(@RequestParam("file") MultipartFile file, @PathVariable String id, @RequestHeader("Authorization") String auth) {
-    employeeService.storeFileForEmployee(file, id);
-  }
-
-  @GetMapping(value = "/{id}/file")
-  public String getFile(@PathVariable String id, Model model, @RequestHeader("Authorization") String auth) {
+  @PostMapping("/{id}/file/{fileName}")
+  public void handleFileUpload(@RequestParam("file") MultipartFile file, @PathVariable String id, @PathVariable String fileName,
+      @RequestHeader("Authorization") String auth) {
     if (authService.isAuthorization(auth)) {
-      Employee employee = employeeService.getEmployee(id);
-      return Base64.getEncoder()
-          .encodeToString(employee.getPermissions().getLifeguard().getImage().getData());
+      employeeService.storeFileForEmployee(file, id, fileName);
     } else {
       throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
     }
   }
+//
+//  @GetMapping(value = "/{id}/file/{fileName}")
+//  public String getFile(@PathVariable String id, Model model, @RequestHeader("Authorization") String auth) {
+//    if (authService.isAuthorization(auth)) {
+//      Employee employee = employeeService.getEmployee(id);
+//      return Base64.getEncoder()
+//          .encodeToString(employee.getPermissions().getLifeguard().getImage().getData());
+//    } else {
+//      throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
+//    }
+//  }
 
   @PostMapping
   public Employee create(@RequestBody Employee employee, @RequestHeader("Authorization") String auth) {
@@ -80,11 +84,7 @@ public class EmployeesController {
   @PutMapping("/{id}")
   public void replace(@RequestBody Employee employee, @PathVariable String id, @RequestHeader("Authorization") String auth) {
     if (authService.isAuthorization(auth)) {
-      Employee employeeFromDb = employeeService.getEmployee(id);
-      employee.getPermissions().getLifeguard().setImage(
-          employeeFromDb.getPermissions().getLifeguard().getImage()
-      );
-      employeeRepository.save(employee);
+      employeeService.updateEmployee(employee, id);
     } else {
       throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
     }
