@@ -143,4 +143,8 @@ public class EmployeeService {
 
     return employeeListItemDto;
   }
+
+  public void delete(String id) {
+    employeeRepository.deleteById(id);
+  }
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,17 +59,6 @@ public class EmployeesController {
       throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
     }
   }
-//
-//  @GetMapping(value = "/{id}/file/{fileName}")
-//  public String getFile(@PathVariable String id, Model model, @RequestHeader("Authorization") String auth) {
-//    if (authService.isAuthorization(auth)) {
-//      Employee employee = employeeService.getEmployee(id);
-//      return Base64.getEncoder()
-//          .encodeToString(employee.getPermissions().getLifeguard().getImage().getData());
-//    } else {
-//      throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
-//    }
-//  }
 
   @PostMapping
   public Employee create(@RequestBody Employee employee, @RequestHeader("Authorization") String auth) {
@@ -88,6 +78,14 @@ public class EmployeesController {
     } else {
       throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
     }
+  }
 
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable String id, @RequestHeader("Authorization") String auth) {
+    if (authService.isAuthorization(auth)) {
+      employeeService.delete(id);
+    } else {
+      throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
+    }
   }
 }
