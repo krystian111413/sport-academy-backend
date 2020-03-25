@@ -1,7 +1,6 @@
 package com.sportacademy.project.employees;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
-import sun.util.calendar.BaseCalendar.Date;
 
 @Slf4j
 @Service
@@ -48,6 +46,11 @@ public class EmployeeService {
           break;
         case "swimmingInstructor":
           employee.getPermissions().getUsefulPermissions().setSwimmingInstructorImage(
+              new Binary(BsonBinarySubType.BINARY, file.getBytes())
+          );
+          break;
+        case "helmsman":
+          employee.getPermissions().getUsefulPermissions().setHelmsmanImage(
               new Binary(BsonBinarySubType.BINARY, file.getBytes())
           );
           break;
