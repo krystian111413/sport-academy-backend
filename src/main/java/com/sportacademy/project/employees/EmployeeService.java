@@ -1,5 +1,7 @@
 package com.sportacademy.project.employees;
 
+import com.sportacademy.project.notifications.NotificationRepository;
+import com.sportacademy.project.notifications.NotificationService;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class EmployeeService {
 
   private EmployeeRepository employeeRepository;
+  private NotificationRepository notificationRepository;
 
   public void storeFileForEmployee(MultipartFile file, String id, String fileName) {
     Employee employee = getEmployee(id);
@@ -142,12 +145,13 @@ public class EmployeeService {
     employeeListItemDto.setFirstName(employee.getFirstName());
     employeeListItemDto.setSurName(employee.getSurName());
     employeeListItemDto.setCity(employee.getDeal().getPlace());
-    employeeListItemDto.setDealEndDate(endDate.split("T")[0]);
+    employeeListItemDto.setDealEndDate(endDate != null ? endDate.split("T")[0] : null);
 
     return employeeListItemDto;
   }
 
   public void delete(String id) {
+    notificationRepository.deleteAllByEmployeeId(id);
     employeeRepository.deleteById(id);
   }
 }

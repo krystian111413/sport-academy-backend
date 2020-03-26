@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface NotificationRepository extends MongoRepository<Notification, String> {
 
   List<Notification> findByEmployeeIdAndTopic(String employeeId, String topic);
+
+  void deleteAllByEmployeeId(String employeeId);
 }

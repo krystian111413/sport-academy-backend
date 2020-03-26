@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
 @AllArgsConstructor
@@ -53,21 +52,21 @@ public class NotificationService {
           employee.getPermissions().getFirstAid().getEndDate(),
           employee,
           "firstAid",
-          employee.getPermissions().getFirstAid().getEndDate().split("T")[0]
+          employee.getPermissions().getFirstAid().getEndDate() != null ?  employee.getPermissions().getFirstAid().getEndDate().split("T")[0] : ""
               + " dnia kończy się kurs kwalifikowanej pierwszej pomocy");
       createNotification(
           OHSTestNotificationDays,
           employee.getPermissions().getOhstests().getEndDate(),
           employee,
           "ohsTest",
-          employee.getPermissions().getOhstests().getEndDate().split("T")[0]
+          employee.getPermissions().getOhstests().getEndDate() != null ? employee.getPermissions().getOhstests().getEndDate().split("T")[0] : ""
               + " dnia upływa termin szkolenia BHP");
       createNotification(
           dealNotificationDays,
           employee.getDeal().getEndDate(),
           employee,
           "deal",
-          employee.getDeal().getEndDate().split("T")[0]
+          employee.getDeal().getEndDate() != null ? employee.getDeal().getEndDate().split("T")[0] : ""
               + " dnia kończy się umowa");
     });
   }
@@ -83,7 +82,7 @@ public class NotificationService {
       Calendar now = Calendar.getInstance();
       Long diffDays = endDateCalendar.getTimeInMillis() - now.getTimeInMillis();
       Long days = TimeUnit.DAYS.convert(diffDays, TimeUnit.MILLISECONDS);
-      if (days < daysReminder) {
+      if (days < daysReminder && days > 0) {
         List<Notification> findResult = notificationRepository.findByEmployeeIdAndTopic(employee.getId(), topic);
         if (findResult.isEmpty()) {
           Notification notification = new Notification();
@@ -103,7 +102,6 @@ public class NotificationService {
       log.error("Can not parse date {}", e);
     }
   }
-
 
 
   private Notification getNotification(String id) {
@@ -144,7 +142,7 @@ public class NotificationService {
   }
 
   private void deleteNotification(String endDate, Notification notification, Long daysReminder) {
-    if (endDate == null || endDate.equals("")){
+    if (endDate == null || endDate.equals("")) {
       notificationRepository.deleteById(notification.getId());
       return;
     }
@@ -162,5 +160,9 @@ public class NotificationService {
     } catch (ParseException e) {
       log.error("Can not parse date {}", e);
     }
+  }
+
+  public void removeAllNotifiactionsByEmployeeId(String employeeId) {
+    notificationRepository.deleteAllByEmployeeId(employeeId);
   }
 }
