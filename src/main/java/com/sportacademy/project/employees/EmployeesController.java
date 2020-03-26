@@ -44,7 +44,7 @@ public class EmployeesController {
   @GetMapping("/{id}")
   public Employee getOne(@PathVariable String id, @RequestHeader("Authorization") String auth) {
     if (authService.isAuthorization(auth)) {
-      return employeeRepository.findById(id).orElseGet(null);
+      return employeeService.getEmployee(id);
     } else {
       throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
     }
