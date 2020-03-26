@@ -14,12 +14,12 @@ public class NotificationScheduler {
 
   private NotificationService notificationService;
 
-  @Scheduled(initialDelay = 1000, fixedDelay = 60000)
+  @Scheduled(initialDelay = 1000, fixedDelay = 21600000)
   public void createNewNotifications() {
     notificationService.createNewNotifications();
   }
 
-  @Scheduled(initialDelay = 1000, fixedDelay = 60000)
+  @Scheduled(initialDelay = 1000, fixedDelay = 21600000)
   public void deleteNewNotifications() {
     notificationService.deleteNotifications();
   }

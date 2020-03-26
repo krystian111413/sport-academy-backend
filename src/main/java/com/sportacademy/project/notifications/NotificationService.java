@@ -6,17 +6,14 @@ import com.sportacademy.project.employees.EmployeeService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
 @AllArgsConstructor
@@ -29,8 +26,9 @@ public class NotificationService {
   private EmployeeService employeeService;
 
   public List<Notification> getLast(Integer count) {
-//    Page<Notification> notificationPage = notificationRepository.findAll(PageRequest.of(1, count, Direction.DESC, "createDate"));
-    return notificationRepository.findAll();
+    List<Notification> notifications = notificationRepository.findAll();
+    Collections.reverse(notifications);
+    return notifications;
   }
 
   public void update(String id, Notification notification) {
@@ -86,12 +84,8 @@ public class NotificationService {
       Long diffDays = endDateCalendar.getTimeInMillis() - now.getTimeInMillis();
       Long days = TimeUnit.DAYS.convert(diffDays, TimeUnit.MILLISECONDS);
       if (days < daysReminder) {
-        Notification example = new Notification();
-        example.setTopic(topic);
-        example.setEmployeeId(employee.getId());
-        Example<Notification> notificationExample = Example.of(example);
-        Optional<Notification> findResult = notificationRepository.findOne(notificationExample);
-        if (!findResult.isPresent()) {
+        List<Notification> findResult = notificationRepository.findByEmployeeIdAndTopic(employee.getId(), topic);
+        if (findResult.isEmpty()) {
           Notification notification = new Notification();
           notification.setChecked(false);
           notification.setCreateDate(new SimpleDateFormat("yyyy-MM-dd").format(now.getTime()));
@@ -161,7 +155,7 @@ public class NotificationService {
       Long diffDays = endDateCalendar.getTimeInMillis() - now.getTimeInMillis();
       Long days = TimeUnit.DAYS.convert(diffDays, TimeUnit.MILLISECONDS);
       if (days > daysReminder || days < -40) {
-        log.info("Notification removed: {}", notification);
+        log.info("Notification removed: {}", notification.toString());
         notificationRepository.deleteById(notification.getId());
       }
     } catch (ParseException e) {
