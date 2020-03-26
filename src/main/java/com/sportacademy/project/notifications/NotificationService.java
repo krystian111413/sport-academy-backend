@@ -52,21 +52,21 @@ public class NotificationService {
           employee.getPermissions().getFirstAid().getEndDate(),
           employee,
           "firstAid",
-          employee.getPermissions().getFirstAid().getEndDate() != null ?  employee.getPermissions().getFirstAid().getEndDate().split("T")[0] : ""
+          (employee.getPermissions().getFirstAid().getEndDate() != null ?  employee.getPermissions().getFirstAid().getEndDate().split("T")[0] : "")
               + " dnia kończy się kurs kwalifikowanej pierwszej pomocy");
       createNotification(
           OHSTestNotificationDays,
           employee.getPermissions().getOhstests().getEndDate(),
           employee,
           "ohsTest",
-          employee.getPermissions().getOhstests().getEndDate() != null ? employee.getPermissions().getOhstests().getEndDate().split("T")[0] : ""
+          (employee.getPermissions().getOhstests().getEndDate() != null ? employee.getPermissions().getOhstests().getEndDate().split("T")[0] : "")
               + " dnia upływa termin szkolenia BHP");
       createNotification(
           dealNotificationDays,
           employee.getDeal().getEndDate(),
           employee,
           "deal",
-          employee.getDeal().getEndDate() != null ? employee.getDeal().getEndDate().split("T")[0] : ""
+          (employee.getDeal().getEndDate() != null ? employee.getDeal().getEndDate().split("T")[0] : "")
               + " dnia kończy się umowa");
     });
   }
