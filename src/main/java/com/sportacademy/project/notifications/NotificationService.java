@@ -145,6 +145,7 @@ public class NotificationService {
 
   private void deleteNotification(String endDate, Notification notification, Long daysReminder) {
     if (endDate == null || endDate.equals("")){
+      notificationRepository.deleteById(notification.getId());
       return;
     }
     Calendar endDateCalendar = Calendar.getInstance();
