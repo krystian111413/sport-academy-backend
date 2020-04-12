@@ -1,13 +1,15 @@
-package com.sportacademy.project.notifications;
+package com.sportacademy.project.notifications.infrastructure;
 
 import com.sportacademy.project.auth.AuthService;
 import java.util.List;
+
+import com.sportacademy.project.notifications.application.NotificationService;
+import com.sportacademy.project.notifications.domain.Notification;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,4 +1,4 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.application;
 
 
 import java.io.File;

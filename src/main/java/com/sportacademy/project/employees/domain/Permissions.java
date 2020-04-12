@@ -1,5 +1,6 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.domain;
 
+import com.sportacademy.project.employees.application.UsefulPermissions;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

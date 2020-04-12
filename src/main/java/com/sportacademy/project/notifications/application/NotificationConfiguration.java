@@ -1,4 +1,4 @@
-package com.sportacademy.project.notifications;
+package com.sportacademy.project.notifications.application;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;

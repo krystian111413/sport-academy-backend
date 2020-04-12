@@ -1,16 +1,15 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bson.types.Binary;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EndDate {
-  private Binary image;
-  private String endDate;
+public class TaxAddress {
+
+  private String address;
 }

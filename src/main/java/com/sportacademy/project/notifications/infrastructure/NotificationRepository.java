@@ -1,7 +1,8 @@
-package com.sportacademy.project.notifications;
+package com.sportacademy.project.notifications.infrastructure;
 
 import java.util.List;
-import java.util.Optional;
+
+import com.sportacademy.project.notifications.domain.Notification;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

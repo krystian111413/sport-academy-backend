@@ -1,4 +1,4 @@
-package com.sportacademy.project.notifications;
+package com.sportacademy.project.notifications.domain;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;

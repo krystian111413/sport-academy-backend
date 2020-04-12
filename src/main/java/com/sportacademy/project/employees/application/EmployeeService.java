@@ -1,7 +1,10 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.application;
 
-import com.sportacademy.project.notifications.NotificationRepository;
-import com.sportacademy.project.notifications.NotificationService;
+import com.sportacademy.project.employees.domain.EmployeeListItemDto;
+import com.sportacademy.project.employees.domain.Employee;
+import com.sportacademy.project.employees.infrastructure.EmployeeRepository;
+import com.sportacademy.project.notifications.infrastructure.NotificationRepository;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;

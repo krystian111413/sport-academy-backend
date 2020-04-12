@@ -1,4 +1,4 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,8 @@ import org.bson.types.Binary;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FirstAid {
+public class MedicalExamination {
+
   private Binary image;
   private String refreshedDate;
   private String endDate;

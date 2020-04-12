@@ -1,4 +1,4 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

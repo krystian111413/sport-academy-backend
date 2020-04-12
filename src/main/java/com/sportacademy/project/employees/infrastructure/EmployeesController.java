@@ -1,7 +1,11 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.infrastructure;
 
 import com.sportacademy.project.auth.AuthService;
 import java.util.List;
+
+import com.sportacademy.project.employees.domain.EmployeeListItemDto;
+import com.sportacademy.project.employees.application.EmployeeService;
+import com.sportacademy.project.employees.domain.Employee;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

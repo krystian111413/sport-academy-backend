@@ -1,14 +1,17 @@
-package com.sportacademy.project.notifications;
+package com.sportacademy.project.notifications.application;
 
-import com.sportacademy.project.employees.Employee;
-import com.sportacademy.project.employees.EmployeeRepository;
-import com.sportacademy.project.employees.EmployeeService;
+import com.sportacademy.project.employees.domain.Employee;
+import com.sportacademy.project.employees.infrastructure.EmployeeRepository;
+import com.sportacademy.project.employees.application.EmployeeService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import com.sportacademy.project.notifications.infrastructure.NotificationRepository;
+import com.sportacademy.project.notifications.domain.Notification;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

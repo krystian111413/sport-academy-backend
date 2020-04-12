@@ -1,4 +1,4 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaxAddress {
+public class RefreshAndEndDate {
 
-  private String address;
+  private String refreshedDate;
+  private String endDate;
 }

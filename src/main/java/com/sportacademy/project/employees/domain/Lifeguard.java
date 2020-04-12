@@ -1,4 +1,4 @@
-package com.sportacademy.project.employees;
+package com.sportacademy.project.employees.domain;
 
 
 import lombok.AllArgsConstructor;
