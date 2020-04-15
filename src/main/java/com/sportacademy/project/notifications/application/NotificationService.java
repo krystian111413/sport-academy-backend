@@ -156,7 +156,7 @@ public class NotificationService {
       Calendar now = Calendar.getInstance();
       Long diffDays = endDateCalendar.getTimeInMillis() - now.getTimeInMillis();
       Long days = TimeUnit.DAYS.convert(diffDays, TimeUnit.MILLISECONDS);
-      if (days > daysReminder || days < -40) {
+      if (days > daysReminder || days < -7 || (days < 0 && !notification.getTopic().equals("deal"))) {
         log.info("Notification removed: {}", notification.toString());
         notificationRepository.deleteById(notification.getId());
       }
