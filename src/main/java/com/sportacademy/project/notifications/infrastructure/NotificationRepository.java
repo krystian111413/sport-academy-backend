@@ -11,5 +11,7 @@ public interface NotificationRepository extends MongoRepository<Notification, St
 
   List<Notification> findByEmployeeIdAndTopic(String employeeId, String topic);
 
+  void deleteAllByEmployeeIdAndTopic(String employeeId, String topic);
+
   void deleteAllByEmployeeId(String employeeId);
 }

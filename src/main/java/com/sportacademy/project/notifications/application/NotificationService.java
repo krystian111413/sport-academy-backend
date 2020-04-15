@@ -85,7 +85,7 @@ public class NotificationService {
       Calendar now = Calendar.getInstance();
       Long diffDays = endDateCalendar.getTimeInMillis() - now.getTimeInMillis();
       Long days = TimeUnit.DAYS.convert(diffDays, TimeUnit.MILLISECONDS);
-      if (days < daysReminder && days > 0) {
+      if (days < daysReminder && days > 0 && !isDealExpired(employee)) {
         List<Notification> findResult = notificationRepository.findByEmployeeIdAndTopic(employee.getId(), topic);
         if (findResult.isEmpty()) {
           Notification notification = new Notification();
@@ -104,6 +104,25 @@ public class NotificationService {
     } catch (ParseException e) {
       log.error("Can not parse date {}", e);
     }
+  }
+
+  private Boolean isDealExpired(Employee employee) {
+    String endDate = employee.getDeal().getEndDate();
+    if (endDate == null || endDate.equals("")) {
+      return false;
+    }
+    Calendar endDateCalendar = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    try {
+      endDateCalendar.setTime(sdf.parse(endDate));
+      Calendar now = Calendar.getInstance();
+      Long diffDays = endDateCalendar.getTimeInMillis() - now.getTimeInMillis();
+      Long days = TimeUnit.DAYS.convert(diffDays, TimeUnit.MILLISECONDS);
+      return days <= 0;
+    } catch (ParseException e) {
+      log.error("Can not parse date {}", e);
+    }
+    return false;
   }
 
 
@@ -156,16 +175,21 @@ public class NotificationService {
       Calendar now = Calendar.getInstance();
       Long diffDays = endDateCalendar.getTimeInMillis() - now.getTimeInMillis();
       Long days = TimeUnit.DAYS.convert(diffDays, TimeUnit.MILLISECONDS);
-      if (days > daysReminder || days < -7 || (days < 0 && !notification.getTopic().equals("deal"))) {
+      if (days > daysReminder || days < -7) {
         log.info("Notification removed: {}", notification.toString());
         notificationRepository.deleteById(notification.getId());
+      }
+      if (notification.getTopic().equals("deal") && days < 0) {
+        log.info("Remove notifications for employee cus deal is expired id: {} ", notification.getEmployeeId());
+        removeAllNotifiactionsByEmployeeIdAndTopic(notification.getEmployeeId(), "ohsTest");
+        removeAllNotifiactionsByEmployeeIdAndTopic(notification.getEmployeeId(), "firstAid");
       }
     } catch (ParseException e) {
       log.error("Can not parse date {}", e);
     }
   }
 
-  public void removeAllNotifiactionsByEmployeeId(String employeeId) {
-    notificationRepository.deleteAllByEmployeeId(employeeId);
+  public void removeAllNotifiactionsByEmployeeIdAndTopic(String employeeId, String topic) {
+    notificationRepository.deleteAllByEmployeeIdAndTopic(employeeId, topic);
   }
 }
