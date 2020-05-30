@@ -137,7 +137,7 @@ public class EmployeeService {
   }
 
   public List<EmployeeListItemDto> getAll() {
-    List<Employee> all = employeeRepository.findAll();
+    List<Employee> all = employeeRepository.findAllLess();
     return all.stream().map(this::fromEmployee).collect(Collectors.toList());
   }
 
